@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
+
+		{% block header %}
+			<header class=" bg-gray-500 rounded-b-2xl p-2 bg-[#1f4ecfff]">
+				<nav class="flex justify-between items-center ml-4 ">
+					<h1>exemplo logo</h1>
+					<ul class="flex gap-4 mr-4  ">
+						<li>
+							<a class="font-semibold text-white hover:text-gray-900 hover:font-bold " href="">Investimentos</a>
+						</li>
+						<li>
+							<a class="font-semibold text-white hover:text-gray-900 hover:font-bold " href="">Resgate</a>
+						</li>
+					</ul>
+				</nav>
+			</header>
+		{% endblock %}
+
+		{% block body %}{% endblock %}
+		{% block footer %}{% endblock %}
+	</body>
 </html>
