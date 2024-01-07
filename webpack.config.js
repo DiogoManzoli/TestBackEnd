@@ -57,6 +57,12 @@ Encore
     options.postcssOptions = {
       config: "./postcss.config.js",
     };
+  })
+
+  .copyFiles({
+    from: "./assets/images", // onde as imagens estão
+    to: "images/[path][name].[hash:8].[ext]", // esse to é o caminho dentro da pasta public que as imagens irão ficar
+    pattern: /\.(png|jpg|jpeg|ico)$/,
   });
 
 // enables Sass/SCSS support
