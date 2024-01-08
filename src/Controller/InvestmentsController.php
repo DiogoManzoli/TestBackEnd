@@ -23,15 +23,34 @@ class InvestmentsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER', 'ROLE_ADMIN');
 
+        return $this->render('investments/index.html.twig', []);
+    }
+
+
+    #[Route('/investimentos/json', name: 'app_investments_json')]
+    public function investimentos(TokenInterface $token): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', 'ROLE_ADMIN');
+
         $userToken = $token->getUser();
         $user = $this->em->getRepository(User::class);
         $userAll = $user->findOneBy(['email' => $userToken->getUserIdentifier()]);
-        //$userId = $userAll->getId();
 
-        $invest = $this->em->getRepository(Invest::class);
-        $investUser = $invest->find($userAll);
-        //dump($investUser);
+        $investimentos = $userAll->getInvests();
 
-        return $this->render('investments/index.html.twig', []);
+        foreach ($investimentos as $value) {
+
+            $investData[] = [
+                'id' => $value->getId(),
+                'userId' =>  $value->getUser()->getId(),
+                'userName' =>  $value->getUser()->getName(),
+                'value' =>  $value->getValue(),
+                'date' =>  $value->getDate()->format('Y-m-d'),
+            ];
+        }
+
+        $json_data = json_encode($investData, JSON_THROW_ON_ERROR);
+
+        return $this->render('json/invest.html.twig', ['json' => $json_data]);
     }
 }

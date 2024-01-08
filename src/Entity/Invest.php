@@ -33,6 +33,7 @@ class Invest
     {
         return $this->user;
     }
+    
 
     public function setUser(?User $user): static
     {
