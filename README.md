@@ -5,4 +5,4 @@
 # Tecnologias utilizadas
 - Symfony, doctrine, tailwind, javascript, twig, e vários pacotes do symfony.
 
-Obs: Não consegui fazer a paginação a tempo.
+Obs: Não consegui fazer a paginação a tempo, o código está na branch featureDiogo.
