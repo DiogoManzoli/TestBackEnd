@@ -30,7 +30,7 @@
 						</li>
 						<li class="flex justify-center items-center w-[100px] gap-2 p-2 rounded-3xl bg-white group hover:bg-[#2a56d1ff] cursor-pointer ">
 							<i class="fa-solid fa-user-tie text-[#2a56d1ff] group-hover:text-white "></i>
-							<a class="flex font-semibold text-[#2a56d1ff] group-hover:text-white font-mono " href="perfil">
+							<a class="flex font-semibold text-[#2a56d1ff] group-hover:text-white font-mono " href="#">
 							{% if is_granted('ROLE_USER') %}
 							{% set name = app.user.name|split(' ') %}
 										{{name[0]}}

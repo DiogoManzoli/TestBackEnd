@@ -12,16 +12,34 @@
 	<article class=" flex flex-col justify-center items-center">
 
 		<article class="mt-[100px]">
-			<form class="flex flex-col justify-center items-center gap-2 " action="" method="post">
+			<form  onsubmit="validarData(event)" class="flex flex-col justify-center items-center gap-2 " action="" method="post">
 				<h1 class=" font-mono font-semibold text-2xl items-start p-1">Faça um investimento</h1>
 				<input name="value" class=" appearance-none p-2 w-[250px] border-2 border-black rounded-3xl " type="number" placeholder="valor que vai ser aplicado">
-				<input name="date" type="date">
-				<button name="submit" type="submit" class=" text-center p-1 rounded-2xl w-[150px] bg-green-500 hover:bg-green-400 ">Aplicar</button>
+				<input id="dataInicial" class="rounded-3xl p-2 px-4 w-[250px] bg-blue-600" name="date" type="date">
+				<button  name="submit" type="submit" class=" text-center p-1 rounded-2xl w-[150px] bg-green-500 hover:bg-green-400 ">Aplicar</button>
 			</form>
 		</article>
 
 		<!--tentar fazer um chart js abaixo com gráfico e tals, se der tempo-->
 	</article>
+
+	<script>
+    function validarData(event) {
+        event.preventDefault();
+
+        const inputDate = document.getElementById("dataInicial").value;
+        const dataEscolhida = new Date(inputDate);
+        const dataAtual = new Date();
+
+        if (dataEscolhida > dataAtual) {
+            alert("Por favor, escolha uma data igual ou anterior à data atual.");
+            document.getElementById("dataInicial").value = ""; // Limpe o valor do campo de data
+            return;
+        }
+
+        event.target.submit(); // Envie o formulário se a data for válida
+    }
+</script>
 
 
 {% endblock %}

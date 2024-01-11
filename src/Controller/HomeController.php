@@ -21,7 +21,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(?TokenInterface $token): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', 'ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $userToken = $token->getUser();
         $user = $this->em->getRepository(User::class);

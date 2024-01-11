@@ -1,29 +1,42 @@
-{% block title %}Log in!{% endblock %}
+{% block title %}
+
+
+	{% block stylesheets %}
+		{{ encore_entry_link_tags('app') }}
+	{% endblock %}
+
+{% endblock %}
+
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+	<article class="mt-[200x]" >
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+		<form class="flex items-center justify-between flex-col " method="post">
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+			{% if app.user %}
+				<div class="mb-3">
+					{{ app.user.userIdentifier }},
+					<a href="{{ path('app_logout') }}">Logout</a>
+				</div>
+			{% endif %}
+
+			<div class=" flex flex-col items-center justify-center border-2 border-b-8  border-blue-600 rounded-lg p-4">
+				<h1 class=" text-lg font-semibold">Realize o login</h1>
+				<label class="text-lg" for="inputEmail">Email</label>
+				<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="w-[200px]" autocomplete="email" required autofocus>
+				<label for="inputPassword">Password</label>
+				<input type="password" name="password" id="inputPassword" class="w-[200px]" autocomplete="current-password" required>
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<button class="w-[200px] bg-blue-400" type="submit">
+					Entrar
+				</button>
+			</div>
+
+
+		</form>
+	</article>
+
+
 {% endblock %}

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}InvesTo
+			{% endblock %}
+		</title>
+
+		<link rel="shortcut icon" href="{{ asset('build/images/favicon/favicon.0b5d9889.ico') }}" type="image/x-icon">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	{% block body %}
+
+		<div class=" flex m-2">
+
+			<a href="/" class=" flex items-center m-10 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+				<svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 14 10">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+				</svg>Voltar</a>
+
+		</div>
+
+		<article id="container" class=" m-5 flex flex-col justify-center items-center gap-4 h-[70vh]"></article>
+
+		<div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+			<div class="relative p-4 w-full max-w-2xl max-h-full">
+
+				<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+
+					<div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+						<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+							Tem certeza que deseja resgatar ?
+						</h3>
+
+						<button onclick="fecharModal()" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+							<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 14 14">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+							</svg>
+							<span class="sr-only">Close modal</span>
+						</button>
+
+					</div>
+
+					<article class="p-4">
+
+						<div class="text-white border-2 border-white rounded-lg p-2">
+
+							<p>Essa aplicação ficou investida
+								<span id="mesesSpan"></span>
+								Meses</p>
+
+							<p id="anosSpan"></p>
+
+						</div>
+
+						<div class="text-white" id="main">
+
+							<div class="flex gap-1">
+								<p>Data da aplicação:</p>
+								<span id="AplicadaSpan"></span>
+							</div>
+
+							<div class="flex gap-1">
+								<p>Data do resgate:</p>
+								<span id="ResgateSpan"></span>
+							</div>
+
+							<div class="flex gap-1">
+								<p>Lucro com imposto:</p>
+								<span id="lucroSpan"></span>
+							</div>
+
+							<div class="flex gap-1">
+								<p>Saldo Total:</p>
+								<span id="saldoSpan"></span>
+							</div>
+
+						</div>
+
+					</article>
+
+					<div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+						<form action="" method="post">
+							<input type="hidden" id="id" name="id" value="">
+							<input type="hidden" id="data" name="data" value="">
+							<input type="hidden" id="valor" name="valor" value="">
+							<button type="submit" name="submit" onclick="fecharModal()" data-modal-hide="default-modal" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Resgatar</button>
+						</form>
+						<button onclick="fecharModal()" data-modal-hide="default-modal" type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">sair</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="flex flex-col items-center">
+
+			<div class="inline-flex mt-2 xs:mt-0">
+				<button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+					<svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 14 10">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+					</svg>
+					Prev
+				</button>
+				<button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+					Next
+					<svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 14 10">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+					</svg>
+				</button>
+			</div>
+		</div>
+
+
+		<script>
+			const container = document.getElementById("container");
+let url = window.location;
+
+fetch(url + '/json').then((response) => response.json()).then((data) => {
+
+
+const htmlStrings = data.map((item) => `<article class="flex flex-col p-4 rounded-3xl border-2 border-b-8 border-blue-600 w-[25%]" href="/investimentos/{{app.user.name}}/${
+item.id
+}" > <div>  <div class="flex gap-1" > <p>Dia da aplicação:  </p> <span id="dataTeste" > ${
+item.date
+}</span> </div>  <div class="flex gap-1" > <p> Valor aplicado: </p> <span id="value" >${
+item.value
+}</span> </div> <div class="flex gap-1" > <p>Lucro em relação a data atual:  </p> <span> ${
+item.lucro
+}</span> </div>  <div class="flex gap-1" > <p>Saldo sem tributos:  </p> <span> ${
+item.lucroBig
+}</span> </div>  </div> <div class="flex flex-col justify-center items-center w-[200px] ml-[75px] mt-[20px] gap-1" > <input type="date" id="dataResgate" class="rounded-lg bg-blue-500 w-[100px] p-1 cursor-pointer" value="" > <button type="button" class=" w-[100px] rounded-lg p-1 cursor-pointer bg-red-500 hover:bg-red-600  " onclick="resgate()"  > Resgatar </button>  </div></article>`);
+
+container.innerHTML = htmlStrings.join('');
+
+});
+
+const modal = document.querySelector("#default-modal");
+const data = document.querySelector('#data');
+const AplicadaSpan = document.querySelector('#AplicadaSpan');
+const ResgateSpan = document.querySelector('#ResgateSpan');
+
+function fecharModal() {
+modal.classList.toggle("flex");
+modal.classList.toggle("hidden");
+}
+
+
+function impostoLucro(tributo, capital) {
+lucro = capital * (tributo / 100);
+return lucro;
+}
+
+function validarData() {
+var dataAplicada = document.querySelector('#dataTeste').textContent
+const dataAplicada2 = new Date(dataAplicada);
+var inputDate = document.getElementById("dataResgate").value;
+var dataEscolhida = new Date(inputDate);
+var dataAtual = new Date();
+
+if (dataEscolhida > dataAtual || dataEscolhida < dataAplicada2) {
+alert("Por favor, escolha uma data igual ou anterior à data atual.");
+document.getElementById("dataEscolhida").value = "";
+}
+return;
+}
+
+function validarDataExiste() {
+var inputDate = document.getElementById("dataResgate").value;
+
+console.log(inputDate);
+
+if (inputDate == "") {
+alert("Você precisa escolher uma data para o resgate! ");
+document.getElementById("dataEscolhida").value = "";
+}
+return;
+}
+
+function resgate() {
+validarDataExiste();
+validarData();
+
+const valor = document.querySelector('#value')
+const valorInt = parseInt(valor.textContent);
+const mesesSpan = document.querySelector('#mesesSpan');
+const anosSpan = document.querySelector('#anosSpan');
+const saldoSpan = document.querySelector('#saldoSpan')
+
+const ResgateSpan = document.querySelector('#ResgateSpan');
+const dataResgate = document.querySelector('#dataResgate').value;
+const lucroSpan = document.querySelector('#lucroSpan');
+var dataAplicada = document.querySelector('#dataTeste')
+const dataAplicada2 = dataAplicada.textContent
+
+
+AplicadaSpan.textContent = dataAplicada.textContent;
+ResgateSpan.textContent = dataResgate;
+
+const dataAplicada3 = new Date(dataAplicada2);
+const dataResgate3 = new Date(dataResgate);
+
+modal.classList.toggle("flex");
+modal.classList.toggle("hidden");
+data.value = dataResgate;
+
+const {frase} = diferencaAnos(dataAplicada3, dataResgate3);
+const {tributo} = diferencaAnos(dataAplicada3, dataResgate3);
+
+
+const montante = valorInt * (1 + 0.0052) ** diferencaMeses(dataAplicada3, dataResgate3)
+var lucro = montante - valorInt;
+var imposto = impostoLucro(tributo, lucro);
+var lucroImposto = lucro - imposto;
+var lucro = Number(lucroImposto).toFixed(2);
+
+saldoSpan.textContent = parseFloat(lucro) + parseInt(valorInt)
+mesesSpan.textContent = diferencaMeses(dataAplicada3, dataResgate3);
+anosSpan.textContent = frase;
+lucroSpan.textContent = lucro
+
+}
+
+function diferencaAnos(date1, date2) {
+const data1Str = date1.toISOString();
+const data2Str = date2.toISOString();
+
+const diferencaEmDias = (new Date(data2Str) - new Date(data1Str)) / (1000 * 60 * 60 * 24);
+const diferencaEmAnos = Math.abs(diferencaEmDias) / (365 + (new Date(data2Str).getFullYear() % 4 == 0 && new Date(data2Str).getFullYear() % 100 != 0) || new Date(data2Str).getFullYear() % 400 == 0);
+const diferencaEmAnosRound = Number(diferencaEmAnos).toFixed(2);
+
+if (diferencaEmAnosRound < 1) {
+return {'frase': 'Sua aplicação ficou menos de 1 ano, portanto terá um tributo de 22,5% emcima dos ganhos', 'tributo': 22.5};
+} else if (diferencaEmAnosRound > 1 && diferencaEmAnosRound < 2) {
+return {'frase': 'Sua aplicação ficou mais de 1 ano, portanto terá um tributo de 18,5% emcima dos ganhos', 'tributo': 18.5};
+} else {
+return {'frase': 'Sua aplicação ficou mais de 2 anos, portanto terá um tributo de 15% emcima dos ganhos', 'tributo': 15};
+}
+
+}
+
+function diferencaMeses(data1, data2) {
+
+var diferencaAnos = data2.getFullYear() - data1.getFullYear();
+var diferencaMeses = data2.getMonth() - data1.getMonth();
+var totalMeses = diferencaAnos * 12 + diferencaMeses;
+
+return totalMeses;
+}
+		</script>
+
+	{% endblock %}
+
+</html>
